@@ -59,7 +59,19 @@ function each(coll, f) {
   //wordLengths("hello its me") // [5,3,2]
   
   function wordLengths(str) {
-      // TODO: your code here 
+  	var count = 0;
+  	var arr = [];
+
+  	each(str.split(" "), function(element) {
+  		each(element, function(e, i) {
+  			count++;
+  		});
+
+  		arr.push(count);
+  		count = 0;
+  	});
+      
+    return arr;
   }
   
   //=============================================================================
@@ -72,7 +84,15 @@ function each(coll, f) {
   // countOccurrences("hello, world!", "l"); // 3
   
   function countOccurrences(string, character) {
-      // your code is here
+      var count = 0;
+
+      each(string.split(""), function(element) {
+      	if(element === character) {
+      		count++;
+      	}
+      });
+
+      return count;
   }
   
   //=============================================================================
@@ -84,7 +104,12 @@ function each(coll, f) {
   // wordsLongerThanThree("Hello Mad World") //["Hello", "World"]
   
   function wordsLongerThanThree(str) {
-      // TODO: your code here 
+       return map(str.split(" "), function(element) {
+       	if (element.length > 3) {
+       		return element;
+       	}
+
+       });
   }
   
   //=============================================================================
@@ -97,9 +122,12 @@ function each(coll, f) {
   //repeatString('dog', 1); // => 'dog' 
   //repeatString('dog', 2); // => 'dog' + 'dog' => 'dogdog' 
   //repeatString('dog', 3); // => 'dog' + 'dog' + 'dog' => 'dogdogdog'
-  
+ 
   function repeatString(str, count) { 
-   // TODO: your code here 
+  	if (count === 0) {
+  		return ""
+  	}
+    return str + repeatString(str, count - 1);
   } 
    
   
@@ -129,6 +157,42 @@ function each(coll, f) {
   // pizza.eatSlice();
   
   // Write your code here .....
+
+  function makePizza(crust, size, sliceNo) {
+  	return {
+  		crust: crust,
+  		size: size,
+  		sliceNo: sliceNo,
+  		displayIngredients: "",
+  		addIngredients: function(ingredient) {
+  			if (this.displayIngredients !== "") {
+  				this.displayIngredients = this.displayIngredients + "," + ingredient;
+  			}
+
+  			if(this.displayIngredients === "") {
+  				this.displayIngredients = this.displayIngredients + ingredient;
+  			}
+
+  		},
+  		bakePizza: function() {
+  			if (crust !== undefined && size !== undefined && sliceNo !== undefined && this.displayIngredients  !== "") {
+  				setTimeout(function() {
+  					alert("your " + crust +" " + size + " " +  sliceNo + "slice pizza is done");
+  					
+  				}, 2000);
+  			}
+  		},
+  		eatSlice: function() {
+  			if (sliceNo > 1) {
+  				sliceNo = sliceNo - 1;
+  				return sliceNo;
+  			}
+  			return "you completed your pizza, you can buy a new one";
+  			
+  		}
+  		
+  	}
+  }
   
   //=============================================================================
   /*                                  Q6                                      */
@@ -153,8 +217,35 @@ function each(coll, f) {
   */
   
   // Now, to make sure that you are actually reading, make a comment below this and type: Yes I am
-  
+
+  // YES I AM
+
   // Write your code here .....
+
+  function ReadingList(currentRead, readBooks, toRead) {
+  	var obj = {};
+
+  	obj.currentRead = currentRead;
+  	obj.readBooks = readBooks;
+  	obj.read = readBooks.length;
+  	obj.toRead = toRead;
+  	obj.unRead = toRead.length;
+	obj.AddBook = AddBook;
+	obj.finishCurrentBook = finishCurrentBook;
+
+	return obj;
+  }
+
+ function AddBook(book) {
+	this.toRead.push(book);
+	this.unRead += 1;
+ }
+
+function finishCurrentBook() {
+	this.readBooks.push(this.currentRead);
+	this.currentRead = toRead.pop();
+	this.unRead -= 1;
+}
   
   //=============================================================================
   /*                                  Q7                                       */
@@ -175,6 +266,45 @@ function each(coll, f) {
   //  safe('money','small') => "watch gold-bar money"
   
   // Write your code here .....
+
+  function makeSafe(limit) {
+  	var slots = limit;
+  	var inside = "";
+
+  	
+  		return function(type, size) {
+  			if(size === "small") {
+  				slots = slots + 1;
+  				inside = inside + type;
+  				if (slots > 5) {
+  					'cant fit'
+  				}
+  			}
+  			if(size === "small") {
+  				slots = slots + 2;
+  				inside = inside + type;
+  				if (slots > 5) {
+  					'cant fit'
+  				}
+  			}
+  		if(size === "small") {
+  			slots = slots + 3;
+  			inside = inside + type;
+  				if (slots > 5) {
+  					'cant fit'
+  				}
+  		}
+  		
+  		if (slots === 5){
+  			return inside;
+  		}
+
+  		return "Can't fit";
+  		}
+  	
+  }
+
+  // MY LOGIC: i need to make limit for the storage then when the storage become full i have to display what in the safe and when ever i some one try add more storage "can't fit" will pop up
   
   //=============================================================================
   /*                                  Q8                                       */
@@ -190,6 +320,8 @@ function each(coll, f) {
   //Do not add a list item if the color value is non of the colors
   
   //DO NOT USE JQUERY
+
+
   
   //================================================================================
   /*                              Q9                                            */
